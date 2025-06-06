@@ -1,0 +1,7 @@
+flask
+joblib
+pandas
+pydantic
+pytest
+scikit-learn>=1.0 # for docker (model_1.pkl)
+# this is all the requirement packages for the app.py

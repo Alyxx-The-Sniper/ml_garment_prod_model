@@ -1,0 +1,83 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    name: Build & Lint
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1) Check out the repository
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      # 2) Set up Python 3.8 (match your local environment)
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.8'
+
+      # 3) Cache pip dependencies
+      - name: Cache pip
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      # 4) Install dependencies
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # 5) (Optional) Lint with flake8
+      #    You can remove this "Lint" step if you don’t use flake8,
+      #    or replace with pytest/run tests if you have tests.
+      - name: Lint with flake8
+        run: |
+          pip install flake8
+          flake8 .
+
+  deploy-to-heroku:
+    name: Deploy to Heroku
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    steps:
+      # 1) Check out the repository again
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      # 2) Set up Python (so Heroku buildpack can be recognized, though not strictly required here)
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.8'
+
+      # 3) Install Heroku CLI
+      - name: Install Heroku CLI
+        run: |
+          curl https://cli-assets.heroku.com/install.sh | sh
+
+      # 4) Log in to Heroku (uses HEROKU_API_KEY secret)
+      - name: Log in to Heroku
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: |
+          echo "$HEROKU_API_KEY" | heroku login --apikey "$HEROKU_API_KEY"
+
+      # 5) Deploy to the app named in HEROKU_APP_NAME (set this in Settings → Secrets)
+      - name: Deploy to Heroku
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
+          heroku_email: ${{ secrets.HEROKU_EMAIL }}
+          # If your Procfile is not in the repo root, you can specify path here:
+          # usedocker: false tells Heroku to detect Python automatically via runtime.txt / requirements.txt
+          usedocker: false

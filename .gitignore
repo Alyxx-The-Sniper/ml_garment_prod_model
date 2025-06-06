@@ -1,0 +1,12 @@
+# ─── Python cache folders & files ───────────────────────────
+__pycache__/
+*.py[cod]
+
+# ─── pytest cache ───────────────────────────
+.pytest_cache/
+
+# ─── virtual environment ───────────────────────
+venv/
+
+# ─── trained‐model artifact ───────────────────
+model_1.pkl

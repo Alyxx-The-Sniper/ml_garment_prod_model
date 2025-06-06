@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+venv/
+env/
+.pytest_cache/
+.git
+.gitignore
+Dockerfile             # (optional—no need to copy the Dockerfile into the final image)
+train_model.py         # (since you don’t need it at runtime)
+test_app.py            # (tests are for CI, not for runtime)
+*.log
