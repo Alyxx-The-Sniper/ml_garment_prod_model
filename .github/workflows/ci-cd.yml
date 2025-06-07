@@ -83,12 +83,12 @@ jobs:
           file: Dockerfile     # points to your Dockerfile at the repo root
           push: true           # sends the image up to Docker Hub
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/my-ml-app:${{ github.sha }}
-            ${{ secrets.DOCKERHUB_USERNAME }}/my-ml-app:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/garment_productivity:${{ github.sha }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/garment_productivity_v2:latest
 
   # 6) Deploy to Render (only on push to main)
   deploy:                      # deploy to render only for push and it is the main branch
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'    
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'    
     needs: docker_build        # Makes sure your Docker image is built and pushed before trying to deploy.
     runs-on: ubuntu-latest
     steps:
