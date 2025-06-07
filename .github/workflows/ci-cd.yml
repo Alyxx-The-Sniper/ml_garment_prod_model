@@ -82,8 +82,7 @@ jobs:
           context: .           # use the root of the repo
           file: Dockerfile     # points to your Dockerfile at the repo root
           push: true           # sends the image up to Docker Hub
-          tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/garment_productivity:${{ github.sha }}
+          tags: |              
             ${{ secrets.DOCKERHUB_USERNAME }}/garment_productivity_v2:latest
 
   # 6) Deploy to Render (only on push to main)
