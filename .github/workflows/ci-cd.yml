@@ -3,9 +3,9 @@ name: 'CI / CD Pipeline'
 # 1) Trigger on push or PR to main
 on:
   push:
-    branches: [main]
+    branches: [master]
   pull_request:
-    branches: [main]
+    branches: [master]
 
 # 2) Only one pipeline per branch at a time
 concurrency:
