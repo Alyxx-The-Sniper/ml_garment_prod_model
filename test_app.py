@@ -5,6 +5,7 @@
 import unittest
 from app import app
 
+
 class BasicAppTest(unittest.TestCase):
     def setUp(self):
         # Create a test client
