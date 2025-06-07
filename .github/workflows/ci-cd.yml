@@ -82,6 +82,7 @@ jobs:
           context: .           # use the root of the repo
           file: Dockerfile     # points to your Dockerfile at the repo root
           push: true           # sends the image up to Docker Hub
+          no-cache: true              # ← busts the cache so new files are always copied (changes in html will reflect not the cache data)
           tags: |              
             ${{ secrets.DOCKERHUB_USERNAME }}/garment_productivity_v2:latest
 
@@ -96,4 +97,4 @@ jobs:
         with:
           service-id: ${{ secrets.RENDER_SERVICE_ID }} # same procedure in docker
           api-key:   ${{ secrets.RENDER_API_KEY }}
-          wait-for-success: true
+
