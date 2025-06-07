@@ -93,7 +93,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Trigger Render deploy
-        uses: render-deploy-action@v0.0.8
+        uses: johnbeynon/render-deploy-action@v0.0.8 # this is a third party action by john beynon (https://github.com/marketplace/actions/render-deploy-action)
         with:
           service-id: ${{ secrets.RENDER_SERVICE_ID }} # same procedure in docker
           api-key:   ${{ secrets.RENDER_API_KEY }}
