@@ -9,4 +9,4 @@ __pycache__/
 venv/
 
 # ─── trained‐model artifact ───────────────────
-model_1.pkl
+# model_1.pkl (cancel ignore, needed for test_app.py)

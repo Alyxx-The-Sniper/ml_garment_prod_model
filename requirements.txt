@@ -1,16 +1,15 @@
-# this is all the requirement packages for the app.py
-flask
-joblib>=1.1.0
-pydantic
-pytest
+# for app.py
+Flask>=2.2,<3.0
+joblib==1.5.1
+pydantic>=2.5,<3.0
 
-# for docker (need in unpiling the model_1.py)
-scikit-learn>=1.0 
-feature-engine>=1.5.0
-xgboost>=1.6.0
-pandas>=1.0.0
-numpy>=1.18.0
+# for docker
+scikit-learn==1.6.1
+feature-engine==1.5.0
+xgboost==1.6.0
+pandas>=1.5.3
+numpy>=1.23.5
 
-
-# dev tools
+# for testing
+pytest>=8.4.0
 flake8>=6.0
